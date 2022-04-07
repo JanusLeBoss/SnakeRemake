@@ -1,81 +1,18 @@
-<p style="position:absolute; color:white; margin-left:10px; margin-top:10px;">SCORE: <span id="score">0</span></p>
-<canvas id="gc" width="600" height="600"></canvas>
-<script>
-window.onload=function() {
-	canv=document.getElementById("gc");
-	scoredisplay=document.getElementById("score");
-	ctx=canv.getContext("2d");
-	document.addEventListener("keydown",keyPush);
-	setInterval(game,1000/15);
-}
-score=0;
-px=py=10;
-gs=30;
-tc=20;
-ax=ay=15;
-xv=yv=0;
-trail=[];
-tail = 5;
-function game() {
-	px+=xv;
-	py+=yv;
-	if(px<0) {
-		px= tc-1;
-	}
-	if(px>tc-1) {
-		px= 0;
-	}
-	if(py<0) {
-		py= tc-1;
-	}
-	if(py>tc-1) {
-		py= 0;
-	}
-	ctx.fillStyle="#3c006b";
-	ctx.fillRect(0,0,canv.width,canv.height);
-
-	ctx.fillStyle="#d7b024";
-	for(var i=0;i<trail.length;i++) {
-		ctx.fillRect(trail[i].x*gs,trail[i].y*gs,gs-2,gs-2);
-		if(trail[i].x==px && trail[i].y==py) {
-			tail = 5;
-		}
-	}
-	trail.push({x:px,y:py});
-	while(trail.length>tail) {
-	trail.shift();
-	}
-
-	if(ax==px && ay==py) {
-		tail++;
-		score++;
-		scoredisplay.textContent  = score;
-		ax=Math.floor(Math.random()*tc);
-		ay=Math.floor(Math.random()*tc);
-	}
-	ctx.fillStyle="red";
-	ctx.fillRect(ax*gs,ay*gs,gs-2,gs-2);
-}
-function keyPush(evt) {
-	switch(evt.keyCode) {
-		case 37:
-		case 81:
-			if(xv==0) {xv=-1;yv=0;}
-			break;
-		case 38:
-		case 90:
-			if(yv==0) {xv=0;yv=-1;}
-			break;
-		case 39:
-		case 68:
-			if(xv==0) {xv=1;yv=0;}
-			break;
-		case 40:
-		case 83:
-			if(yv==0) {xv=0;yv=1;}
-			break;
-		default:
-			console.log(evt.keyCode);
-	}
-}
-</script>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Boss Snake</title>
+	<link rel="stylesheet" href="./style.css">
+	<script src="./game.js"></script>
+</head>
+<body>
+	<div id="game_block">
+		<p id="score_block">
+			SCORE: <span id="score">0</span>
+		</p>
+		<canvas id="game_canvas" width="600" height="600"></canvas>
+	</div>
+</body>
+</html>
