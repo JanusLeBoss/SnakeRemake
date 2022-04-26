@@ -1,5 +1,5 @@
 /*
-C le code du jeu en JS qui consiste en une boucle infinie, lancÈe au chargement de la page, qui appelle la fonction game().
+C le code du jeu en JS qui consiste en une boucle infinie, lanc? au chargement de la page, qui appelle la fonction game().
 
 La fonction game() contient:
 -
@@ -8,27 +8,48 @@ La fonction game() contient:
 - rafraichit le canvas
 */
 
+debug = true;
+started = false;
+score = 0;
+x_position = y_position = 10;
+x_speed = 1;
+y_speed = 0;
+x_apple = y_apple = 15;
+cell_size = 30;
+row_length = 20;  // number of cells in a row or a column
+tail = [];
+tail_length = 5;
+interval_id = undefined;
+
 window.onload=function() {
 	canv=document.getElementById("game_canvas");
 	scoredisplay=document.getElementById("score");
 	ctx=canv.getContext("2d");
 	document.addEventListener("keydown",keyPush);
-	// boucle infinie : appelle la fonction game() toutes les 15/1000 de seconde
-	setInterval(game,1000/15)
+	start_game();
 }
 
-debug=true;
-score=0;
-x_position = y_position = 10;
-x_speed = y_speed = 0;
-x_apple = y_apple = 15;
-cell_size = 30;
-row_length = 20;  // number of cells in a row or a column
-trail=[];
-tail = 5;
+function start_game(){
+	// boucle infinie : appelle la fonction game() toutes les 15/1000 de seconde
+	started = true;
+	interval_id = setInterval(game,1000/15);
+}
+
+function stop_game(){
+	if(interval_id !== undefined){
+		clearInterval(interval_id);
+		interval_id = undefined;
+	}
+}
 
 function move_snake(){
-	// inc position with current speed
+	// move tail
+	tail.push({x:x_position,y:y_position});
+	while(tail.length > tail_length) {
+		tail.shift();
+	}
+
+	// move head
 	x_position += x_speed;
 	y_position += y_speed;
 	// teleport back on the other side if out of walls
@@ -55,33 +76,44 @@ function paint_square(x, y){
 }
 
 function game() {
+	// partie 1 : avancer le serpent
 	move_snake();
-	paint_canvas_background();
-	ctx.fillStyle="#d7b024";
-	for(var i=0;i<trail.length;i++) {
-		paint_square(trail[i].x, trail[i].y);
-		if(trail[i].x==x_position && trail[i].y==y_position) {
-			// if snake bite his tail, reset tail length
-			tail = 5;
-		}
-	}
 
-	trail.push({x:x_position,y:y_position});
-	while(trail.length>tail) {
-		trail.shift();
-	}
-
+	// partie 2 : mange-t-il une pomme ?
 	if(x_apple==x_position && y_apple==y_position) {
-		tail++;
+		// Oui, on augmente le score
+		tail_length++;
 		score++;
 		scoredisplay.textContent  = score;
+		// On g√©n√®re une nouvelle pomme
 		x_apple=Math.floor(Math.random()*row_length);
 		y_apple=Math.floor(Math.random()*row_length);
 	}
-	
+
+	// partie 3 : mange-t-il sa queue ?
+	for(var i=0; i < tail.length; i++) {
+		if(tail[i].x==x_position && tail[i].y==y_position) {
+			// si le serpent mange sa queue, on arr√™te le jeu !
+			stop_game();
+		}
+	}
+
+	// partie 3 : Render
+	paint_canvas_background();
+	// affiche le serpent
+	ctx.fillStyle="#d7b024";
+	for(var i=0;i<tail.length;i++) {
+		paint_square(tail[i].x, tail[i].y);
+	}
+	// affiche la pomme
 	ctx.fillStyle="red";
 	paint_square(x_apple, y_apple);
 }
+
+
+/*
+	Key Bindings
+*/
 
 function keyPush(evt) {
 	/*
@@ -133,7 +165,7 @@ function start() {
     ctx.translate(x, y);
 	// peindre avec le motif
     ctx.fillstyle = pattern;
-	// on dessinne le carrÈ 
+	// on dessinne le carr? 
     ctx.fillrect(0, 0, 30, 40);
 	// on dessinne le cercle
     ctx.beginpath();
@@ -147,3 +179,4 @@ function start() {
   requestanimationframe(render);
 }
 */
+
