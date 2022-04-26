@@ -3,5 +3,30 @@ p#score_block {
 	color : white;
 	margin-left : 10px;
 	margin-top : 10px;
+	z-index : 2;
 }
 
+div#game_over {
+	position : absolute;
+	background-color : #000000a0;
+	color : red;
+	height : 600px;
+	width : 600px;
+	z-index : 3;
+}
+
+div#game_over_text {
+	background-color : black;
+	height : 200px;
+	width : 400px;
+	margin-left : 100px;
+	margin-top : 200px;
+	display:flex;
+	justify-content:center;
+	align-items:center;
+}
+div#game_over_text p {
+	color : red;
+	font-size : 50px;
+	font-family: 'Orbitron', sans-serif;
+}

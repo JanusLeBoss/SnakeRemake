@@ -98,7 +98,7 @@ function game() {
 		}
 	}
 
-	// partie 3 : Render
+	// partie 4 : Render
 	paint_canvas_background();
 	// affiche le serpent
 	ctx.fillStyle="#d7b024";
