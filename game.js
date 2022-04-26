@@ -1,10 +1,20 @@
+/*
+C le code du jeu en JS qui consiste en une boucle infinie, lancée au chargement de la page, qui appelle la fonction game().
+
+La fonction game() contient:
+-
+-
+-
+- rafraichit le canvas
+*/
+
 window.onload=function() {
 	canv=document.getElementById("game_canvas");
 	scoredisplay=document.getElementById("score");
 	ctx=canv.getContext("2d");
 	document.addEventListener("keydown",keyPush);
-	setInterval(game,1000/15);
-	console.log(ctx);
+	// boucle infinie : appelle la fonction game() toutes les 15/1000 de seconde
+	setInterval(game,1000/15)
 }
 
 debug=true;
@@ -47,7 +57,6 @@ function paint_square(x, y){
 function game() {
 	move_snake();
 	paint_canvas_background();
-
 	ctx.fillStyle="#d7b024";
 	for(var i=0;i<trail.length;i++) {
 		paint_square(trail[i].x, trail[i].y);
@@ -100,3 +109,41 @@ function keyPush(evt) {
 			if(debug) { console.log(evt.keyCode); }
 	}
 }
+
+function animate() {
+
+}
+/*const img = new image();
+img.onload = start;
+img.src = 'https://i.imgur.com/fqgm8uh.png';
+
+function start() {
+  const ctx = document.queryselector('canvas').getcontext('2d');
+  
+  const pattern = ctx.createpattern(img, 'repeat');
+
+  function render(time) {
+    time *= 0.001;  // seconds;
+    
+    ctx.clearrect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    
+    const x = math.sin(time * 1.1) * 150 + 150;
+    const y = math.sin(time * 1.2) * 50 + 50;
+    
+    ctx.translate(x, y);
+	// peindre avec le motif
+    ctx.fillstyle = pattern;
+	// on dessinne le carré 
+    ctx.fillrect(0, 0, 30, 40);
+	// on dessinne le cercle
+    ctx.beginpath();
+    ctx.arc(0, 0, 25, 0, math.pi * 2);
+    ctx.fill();
+    
+    ctx.settransform(1, 0, 0, 1, 0, 0);  // set it back to the default
+    
+    requestanimationframe(render);
+  }
+  requestanimationframe(render);
+}
+*/
