@@ -14,7 +14,6 @@ div#game_over {
 	height : 600px;
 	width : 600px;
 	z-index : 3;
-	display:none;
 	flex-direction: column;
 	justify-content:center;
 	align-items:center;
@@ -46,4 +45,12 @@ div#game_over_score {
 	font-size : 20px;
 	border-bottom-right-radius: 0px;
 	border-bottom-left-radius: 0px;
+}
+
+.visible {
+	display:flex;
+}
+
+.hidden {
+	display:none;
 }

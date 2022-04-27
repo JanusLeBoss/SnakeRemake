@@ -23,6 +23,7 @@ interval_id = undefined;
 
 window.onload=function() {
 	canv=document.getElementById("game_canvas");
+	gameover=document.getElementById("game_over");
 	scoredisplay=document.getElementById("score");
 	ctx=canv.getContext("2d");
 	document.addEventListener("keydown",keyPush);
@@ -36,9 +37,13 @@ function start_game(){
 }
 
 function stop_game(){
+	// si la boucle infinie tourne, alors on l'arrete et on affiche l'ecran game over
 	if(interval_id !== undefined){
+		// on arrete la boucle
 		clearInterval(interval_id);
 		interval_id = undefined;
+		// on affiche l'ecran game over
+		gameover.className = "visible";
 	}
 }
 
@@ -94,7 +99,7 @@ function game() {
 	for(var i=0; i < tail.length; i++) {
 		if(tail[i].x==x_position && tail[i].y==y_position) {
 			// si le serpent mange sa queue, on arrête le jeu !
-			stop_game();
+			 stop_game();
 		}
 	}
 
