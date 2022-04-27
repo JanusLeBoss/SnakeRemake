@@ -10,7 +10,7 @@ La fonction game() contient:
 
 debug = true;
 started = false;
-score = 0;
+score = 9990;
 x_position = y_position = 10;
 x_speed = 1;
 y_speed = 0;

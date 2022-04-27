@@ -4,6 +4,7 @@ p#score_block {
 	margin-left : 10px;
 	margin-top : 10px;
 	z-index : 2;
+	font-family: 'Orbitron', sans-serif;
 }
 
 div#game_over {
@@ -13,20 +14,36 @@ div#game_over {
 	height : 600px;
 	width : 600px;
 	z-index : 3;
-}
-
-div#game_over_text {
-	background-color : black;
-	height : 200px;
-	width : 400px;
-	margin-left : 100px;
-	margin-top : 200px;
-	display:flex;
+	display:none;
+	flex-direction: column;
 	justify-content:center;
 	align-items:center;
 }
-div#game_over_text p {
+
+.game_over {
+	background-color : black;
+	display:flex;
+	justify-content:center;
+	align-items:center;
+	border-radius: 20px;
+}
+.game_over p {
+	margin: 20px;
 	color : red;
-	font-size : 50px;
 	font-family: 'Orbitron', sans-serif;
+}
+
+
+div#game_over_text{
+	height : 100px;
+	width : 400px;
+	font-size : 50px;
+}
+
+div#game_over_score {
+	height : 50px;
+	width: fit-content;
+	font-size : 20px;
+	border-bottom-right-radius: 0px;
+	border-bottom-left-radius: 0px;
 }
