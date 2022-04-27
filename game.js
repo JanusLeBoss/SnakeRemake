@@ -10,7 +10,7 @@ La fonction game() contient:
 
 debug = true;
 started = false;
-score = 9990;
+score = 0;
 x_position = y_position = 10;
 x_speed = 1;
 y_speed = 0;
@@ -25,6 +25,7 @@ window.onload=function() {
 	canv=document.getElementById("game_canvas");
 	gameover=document.getElementById("game_over");
 	scoredisplay=document.getElementById("score");
+	finalscore=document.getElementById("end_score");
 	ctx=canv.getContext("2d");
 	document.addEventListener("keydown",keyPush);
 	start_game();
@@ -42,6 +43,8 @@ function stop_game(){
 		// on arrete la boucle
 		clearInterval(interval_id);
 		interval_id = undefined;
+		// on uptade le score sur l'ecran game over
+		finalscore.textContent  = score;
 		// on affiche l'ecran game over
 		gameover.className = "visible";
 	}
